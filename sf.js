@@ -28,11 +28,11 @@ function nextQuote() {
 	//Get the options printed
 	objOptions = questions[newQuoteIndex].options;
 	var strAllOptions = "";
-	if (questions[newQuoteIndex].type == "single") {
+	if (questions[newQuoteIndex].type.toLowerCase() == "single") {
 		Object.keys(objOptions).forEach(function(key) {
 		  strAllOptions = strAllOptions + createRadio(key, objOptions[key])
 		})
-	}else if (questions[newQuoteIndex].type == "multi") {
+	}else if (questions[newQuoteIndex].type.toLowerCase() == "multi") {
 		Object.keys(objOptions).forEach(function(key) {
 		  strAllOptions = strAllOptions + createCheckbox(key, objOptions[key])
 		})
@@ -120,11 +120,11 @@ function highlightAllAnswersGreen() {
 	var strExpected = "";
 	var ans_array = questions[newQuoteIndex].answer.split(',');
 	
-	if (questions[newQuoteIndex].type == "single") {
+	if (questions[newQuoteIndex].type.toLowerCase() == "single") {
 		document.getElementById("answer").innerHTML = 'Answer: ' + ans_array;
 		document.getElementById(questions[newQuoteIndex].answer).classList.add('bg-success');
 		strExpected = questions[newQuoteIndex].answer.trim();
-	} else if (questions[newQuoteIndex].type == "multi") {
+	} else if (questions[newQuoteIndex].type.toLowerCase() == "multi") {
 		document.getElementById("answer").innerHTML = 'Answer: ' + ans_array;
 		for(var i = 0; i < ans_array.length; i++) {
 			document.getElementById(ans_array[i].trim()).classList.add('bg-success');
@@ -137,14 +137,14 @@ function getActualValue() {
 	var strExpectedValue = questions[newQuoteIndex].answer;
 	var strActualChecked = "";
 	
-	if (questions[newQuoteIndex].type == "single") {
+	if (questions[newQuoteIndex].type.toLowerCase() == "single") {
 		if(document.querySelector('input[name="options"]:checked') != null) {
 			strActualChecked = document.querySelector('input[name="options"]:checked').value;
 			if(strActualChecked != strExpectedValue) {
 				document.getElementById(strActualChecked).classList.add('bg-danger');
 			}
 		}
-	} else if (questions[newQuoteIndex].type == "multi") {
+	} else if (questions[newQuoteIndex].type.toLowerCase() == "multi") {
 		var markedCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
 		for (var checkbox of markedCheckbox) {  
 			strActualChecked = strActualChecked + ',' + checkbox.value;
@@ -314,7 +314,7 @@ qbSaurabh = [
 { "question": "Howshould a developer write unit tests for a private method in an Apex class?","type": "single","options" : {"A": "Mark the Apex class as global.","B": "Use the SeeAllData annotation.","C": " Use the TestVisible annotation.","D": "Add a test method in the Apex class."},"answer": "C"},
 { "question": "A developer is asked to create a Visualforce page that displays some Account fields as well asfields configured on the page layout for related Contacts.How should the developer implement this request?","type": "single","options" : {"A": ".Use the &lt;apex:include&gt; tag.","B": "Create a controller extension","C": " Add a method to the standard controller.","D": "Use the &lt;apex:relatedList&gt; tag."},"answer": "D"},
 { "question": "A development team wants to use a deployment script lo automatically deploy lo a sandboxduring their development cycles.Which two tools can they use to run a script that deploysto a sandbox?","type": "multi","options" : {"A": "Change Sets","B": "Developer Console","C": "Ant Migration Tool","D": "SFDX CLI"},"answer": "C,D"},
-{ "question": "Which of the following annotations available in Salesforce REST services?","type": "Multi","options" : {"A": "1. @HttpGet","B": "2. @HttpPost","C": "3. HttpDelete","D": "4. All of the above"},"answer": "D"},
+{ "question": "Which of the following annotations available in Salesforce REST services?","type": "multi","options" : {"A": " @HttpGet","B": " @HttpPost","C": " HttpDelete","D": "All of the above"},"answer": "D"},
 { "question": "A developer must provide custom userinterfaces when users edit a Contact in eitherSalesforce Classic or Lightning Experience.What should the developer use to override the Contact's Edit button and provide this functionality?","type": "single","options" : {"A": "A Visualforce page in Salesforce Classic and a Lightning component in Lightning Experience","B": "A Visualforce page in Salesforce Classic and a Lightning page in Lightning Experience","C": "A Lightning component in 5alesforce Classic and a Lightning component in lightning Experience","D": " A Lightning page in Salesforce Classicand a Visualforce page in Lightning Experience"},"answer": "A"},
 { "question": "A developer must create a lightning component that allows users to input contact record information to create a contact record, including a salary__c custom field. what should the developer use, along with a lightning-record-edit form, so that salary__c field functions as a currency input and is only viewable and editable by users that have the correct field levelpermissions on salary__C?","type": "single","options" : {"A": " &lt;lightning-input-currency value=''Salary__c''&gt;&lt;/lightning-input-currency&gt;","B": "&lt;lightning-formatted-number value=''Salary__c'' format-style=''currency''&gt;&lt;/lightning-formatted-number&gt;","C": "&lt;ligthning-input-field field-name=''Salary__c''&gt;&lt;/lightning-input-field&gt;","D": "&lt;lightning-input type=''number'' value=''Salary__c'' formatter=''currency''&gt;&lt;/lightning-input&gt;"},"answer": "C"},
 { "question": "If apex code executes inside the execute() method of an Apex class when implementing the Batchable interface, which statement are true regarding governor limits? Choose 2 answers","type": "multi","options" : {"A": "The apex governor limits are reset for each iteration of the execute() mrthod.","B": "The Apex governor limits might be higher due to the asynchronous nature of the transaction.","C": "The Apex governor limits are relaxed while calling the costructor of the Apex class.","D": "The Apex governor limits cannot be exceeded due to the asynchronous nature of the transaction,"},"answer": "A,B"},
